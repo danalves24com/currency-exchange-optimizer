@@ -33,13 +33,35 @@ namespace exop {
     };
 
   };
+  class currencyOptimizer {
+    public:
+    void search(Currency c) {
+      double amt = 100.0, maxAmt = -1;
+      CurrencyConverter cc;
+      int size = (c.rateVector).size(), maxIndex = -1;
+      for(int subCurrency = 0 ; subCurrency < size ; subCurrency +=1 ) {
+        double conversionResult = cc.convert(c, static_cast<Currencies>(subCurrency), amt);
+        if(conversionResult > maxAmt) {
+          maxIndex = subCurrency;
+          maxAmt = conversionResult;
+        }
+      }
+      cout << static_cast<Currencies>(maxIndex) << endl;
+    };
+  };
 };
 using namespace exop;
+
+
 int main () {
   CurrencyConverter cc;
-  Currency USD("USD", 21.3, 0.4, 1, 0.9, 0.8);
-  double cc01 = cc.convert(USD, Currencies::CZK, 3);
-  cout << cc01 << endl;
+  currencyOptimizer co;
+  Currency USD("USD", 21.76, 0.85, 1, 0.72, 109.69);
+  vector<Currency> currencyList = {USD};
+  for(int c = 0 ; c < 1 ; c +=1 ) {
+    Currency c_c = currencyList[c];
+    co.search(c_c);
+  }
   return 0;
 }
 
