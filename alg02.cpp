@@ -28,9 +28,17 @@ namespace exchange {
     }
     return vec;
   };
+
+  double convert(vector<Currency> map, Currencies Source, Currencies Target, double value) {
+    Currency sourceCurrency = map[Source], targetCurrency = map[Target];
+    return sourceCurrency.rates[Target] * value;
+  };
+
 };
 
 using namespace exchange;
+
+
 
 int main () {
 
@@ -43,10 +51,14 @@ int main () {
     , CZK(Currencies::CZK, CZKrates)
     , JPY(Currencies::JPY, JPYrates);
 
+
   Currency &baseCurrency = CZK;
+  vector<Currency> currencyVector = {USD, CZK, JPY};
 
-  vector<Currency> currencyVector = {};
 
+  double result = convert(currencyVector, Currencies::USD, Currencies::CZK, 3);
+
+  cout << result;
 
   return 0;
 }
