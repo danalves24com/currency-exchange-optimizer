@@ -1,2 +1,2 @@
 comile:
-	@g++ main.cpp -o exop
+	@g++ alg02.cpp -o exop

@@ -7,14 +7,17 @@ using namespace std;
 
 namespace exchange {
 
+
+  enum Currencies { USD, CZK, JPY };
+
   class Currency {
 
     public:
-    Currency(string nameIn, vector<double> ratesIn) {
+    Currency(Currencies nameIn, vector<double> ratesIn) {
       name = nameIn;
       rates = ratesIn;
     }
-    string name;
+    Currencies name;
     vector<double> rates;
   };
   vector<double> multiplyVectorBy(vector<double> vec, double d) {
@@ -25,19 +28,25 @@ namespace exchange {
     }
     return vec;
   };
-  string stringifyDoubleVector(vector<double> vec) {
-    string str(vec.begin(), vec.end());
-    return str;
-  };
 };
 
 using namespace exchange;
 
 int main () {
 
-  //Currency CZK("CZK");
-  vector<double> sampleVec = {0.5,0.6,1.2};
-  sampleVec = multiplyVectorBy(sampleVec, 2.4);
-  cout << stringifyDoubleVector(sampleVec);
+
+  vector<double> USDrates = {1, 21.72, 110.03}
+    , CZKrates = {0.047, 1, 5.07}
+    , JPYrates = {0.0091, 0.20, 1};
+
+  Currency USD(Currencies::USD, USDrates)
+    , CZK(Currencies::CZK, CZKrates)
+    , JPY(Currencies::JPY, JPYrates);
+
+  Currency &baseCurrency = CZK;
+
+  vector<Currency> currencyVector = {};
+
+
   return 0;
 }
